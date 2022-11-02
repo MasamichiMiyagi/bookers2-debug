@@ -27,6 +27,7 @@
               <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
             <% end %>
           </td>
+          <td>
             <% if @book.favorited_by?(current_user) %>
               <p>
                 <%= link_to book_favorites_path(@book), method: :delete do %>
@@ -40,6 +41,32 @@
                 <% end %>
               </p>
             <% end %>
+          </td>
+          <td>
+            <p>コメント件数：<%= @book.book_comments.count %></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <% @book.book_comments.each do |book_comment| %>
+              <p>
+                <%= image_tag book_comment.user.get_profile_image(50,50) %>
+              </p>
+              <%= book_comment.user.name %>
+              <%= book_comment.comment %>
+              <% if book_comment.user == current_user %>
+                <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-sm btn-danger" %>
+              <% end %>
+            <% end %>
+
+            <%= form_with model: [@book, @book_comment] do |f| %>
+
+              <%= render 'layouts/errors', obj: f.object %>
+
+              <%= f.text_area :comment, rows: '5',cols: '40' %>
+              <%= f.submit "送信" %>
+            <% end %>
+          </td>
         </tr>
       </table>
     </div>
