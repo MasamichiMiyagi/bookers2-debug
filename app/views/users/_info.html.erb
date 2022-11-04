@@ -8,6 +8,24 @@
 	  <th>introduction</th>
 	  <th><%= @user.introduction %></th>
   </tr>
+
+  <tr>
+    <th>follows</th>
+    <th>
+      <%= link_to  @user.followeds.count %>
+    </th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th>
+      <%= link_to  @user.followers.count %>
+    </th>
+  </tr>
+
+  <tr>
+    <%= link_to 'フォローする', user_path(@user), class: "btn btn-sm btn-success" %>
+  </tr>
+
 </table>
 
 <div class='row'>
