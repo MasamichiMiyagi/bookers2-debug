@@ -1,12 +1,16 @@
 class RelationshipController < ApplicationController
   # フォローするとき
   def create
+    @users = User.all
+    @user = User.find(params[:id])
     current_user.follow(params[:user_id])
     redirect_to request.referer
   end
 
   # フォロー外すとき
   def destroy
+    @users = User.all
+    @user = User.find(params[:id])
     current_user.unfollow(params[:user_id])
     redirect_to request.referer
   end
